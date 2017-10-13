@@ -9,6 +9,14 @@ namespace Sitecore.Support.Mvc.Pipelines.Response.GetRenderer
 {
     public class GetViewRenderer : Sitecore.Mvc.Pipelines.Response.GetRenderer.GetViewRenderer
     {
+        public override void Process(GetRendererArgs args)
+        {
+            if (args.Result != null)
+            {
+                return;
+            }
+            args.Result = base.GetRenderer(args.Rendering, args);
+        }
         protected override string GetViewPath(Rendering rendering, GetRendererArgs args)
         {
             return base.GetViewPathFromRenderingType(rendering, args) ?? this.GetViewPathFromRenderingItemNew(rendering);
